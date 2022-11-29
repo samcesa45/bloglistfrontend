@@ -1,0 +1,48 @@
+.view-btn{
+    padding: 0;
+    border: none;
+    color: #008CBA;
+    border-radius: 0.25rem;
+    font-size: 14px;
+    line-height: 1.25;
+    text-transform: capitalize;
+    cursor: pointer;
+}
+
+.view-btn:hover{
+    font-weight: 550;
+    color: #0076ba;
+}
+.hide-btn{
+    padding: 0;
+    border: none;
+    color: #282c2e;
+    border-radius: 0.25rem;
+    font-size: 14px;
+    line-height: 1.25;
+    text-transform: capitalize;
+    cursor: pointer;
+}
+
+.hide-btn:hover{
+    font-weight: 550;
+    color: #525658;
+}
+
+.delete-btn{
+    padding: 0.35rem 0.35rem;
+    margin: 0 0.5rem;
+    border: none;
+    background-color: #ba5400;
+    color:#fff;
+    border-radius: 0.25rem;
+    font-size: 14px;
+    line-height: 1.25;
+    text-transform: capitalize;
+    cursor: pointer;
+}
+
+.delete-btn:hover{
+    font-weight: 400;
+    background-color: #b9621b;
+}
