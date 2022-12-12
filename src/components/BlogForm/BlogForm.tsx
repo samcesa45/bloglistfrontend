@@ -23,7 +23,7 @@ const BlogForm = ({ createBlog }: Props) => {
 
   const handleAddBlog = (event:React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    if(!newTitle || !newAuthor || !newUrl) return
+    if(newTitle.length === 0 || newAuthor.length === 0 || newUrl.length === 0) return
 
     createBlog({
       id:'',

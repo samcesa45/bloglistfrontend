@@ -6,8 +6,8 @@ import { blogService } from '../../services/blog'
 
 type Props = {
     blog:BlogProps,
-    user:UserProps | null,
-    setUpdate: Dispatch<SetStateAction<number | null>>
+    user:UserProps | undefined,
+    setUpdate: Dispatch<SetStateAction<number>>
 }
 
 const Blog = ({ blog,user,setUpdate }: Props) => {
@@ -35,29 +35,34 @@ const Blog = ({ blog,user,setUpdate }: Props) => {
 
   const removeBlog = async (event:React.FormEvent<HTMLButtonElement>) => {
     event.preventDefault()
-    if(window.confirm(`Remove blog ${blog.title} by ${blog.author}`)){
-      if(user?.token){
-        blogService.setToken(user?.token)
-        await blogService.remove(blog.id, user?.token)
-        setUpdate(Math.floor(Math.random() * 100))
+    try {
+      if(window.confirm(`Remove blog ${blog.title} by ${blog.author}`)){
+        if(user?.token){
+          blogService.setToken(user?.token)
+          await blogService.remove(blog.id, user?.token)
+          setUpdate(Math.floor(Math.random() * 100))
 
+        }
       }
+    } catch (exception) {
+      console.error(exception)
     }
 
   }
   return (
     <Card>
-      {blog.title} <b>{blog.author}</b>
-      <div  style={hideWhenVisible}>
-        <button className='view-btn' onClick={toggleView}>view more</button>
+      <div  style={hideWhenVisible} className='blogTitle'>
+        {blog.title} by {blog.author} <button className='view-btn' data-testid="view" onClick={toggleView}>view</button>
       </div>
-      <div style={showWhenVisible}>
-        {blog.url}
-        <button type='submit' className='view-btn' onClick={increaseLikes}>{blog.likes}</button> <span>likes</span>
-        {user === null ? '' : <button className='delete-btn' onClick={removeBlog}>remove</button>}
-        <button className='hide-btn' onClick={toggleView}>hide</button>
+      <div style={showWhenVisible} data-testid='show-div' className='show-div'>
+        <div>{blog.title} <button className='hide-btn' onClick={toggleView}>hide</button></div>
+        <div>{blog.url}</div>
+        <div id="like">
+          {blog.likes}<button type='submit' className='view-btn' onClick={increaseLikes} data-testid="likes">likes</button>
+        </div>
+        <div>{blog.author}</div>
+        <button className='delete-btn' onClick={removeBlog}>remove</button>
       </div>
-
     </Card>
   )
 }

@@ -7,7 +7,7 @@ import { blogService } from './services/blog'
 import { loginService } from './services/login'
 import { BlogProps, NotificationProps, UserProps } from './types/types'
 import './app.scss'
-import BlogForm from './components/Blog/BlogForm'
+import BlogForm from './components/BlogForm/BlogForm'
 import Togglable from './components/Togglable/Togglable'
 type toggleVisibilityProps = {
   toggleVisibility:()=>void
@@ -21,8 +21,8 @@ const App = () => {
     error:'',
     success:''
   })
-  const [user,setUser] = useState<UserProps | null>(null)
-  const [update,setUpdate] = useState<number | null>(null)
+  const [user,setUser] = useState<UserProps>()
+  const [update,setUpdate] = useState<number>(0)
   const blogFormRef = useRef<null | toggleVisibilityProps>(null)
 
   useEffect(() => {
@@ -76,6 +76,7 @@ const App = () => {
 
   }
 
+
   const handleLogin = async (event:React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     try {
@@ -127,7 +128,7 @@ const App = () => {
         :
         <div>
           <h2>Blogs</h2> <span onClick={logout} className='logout'>Logout</span>
-          <p>{user.name} logged-in</p>
+          <p>{user?.name} logged-in</p>
           <div>
             <Togglable btnLabel="new blog" ref={blogFormRef}>
               <BlogForm
